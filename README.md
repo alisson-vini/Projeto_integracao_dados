@@ -54,3 +54,13 @@
 | `regional` | Superintendência Regional da Polícia Rodoviária Federal responsável pela área do acidente. |
 | `delegacia` | Delegacia da PRF responsável pela circunscrição do local do acidente. |
 | `uop` | Unidade Operacional da PRF responsável pela área do acidente. |
+
+## Lista com todas as transformações feitas nos dados
+- Alteração nos tipos de dados da seguinte forma:
+    - data_inversa -> DateTime (DD/MM/YYYY)
+    - horario -> (HH:MM:SS)
+- Na coluna `ano_fabricacao_veiculo` foi alterado as celulas que tinham valor 0 para NULL
+- foram removidas as colunas: `ilesos`, `feridos_leves`, `feridos_graves`, `mortos` porque essas informações já estão contidas na coluna `estado_fisico`
+- Alteração na coluna de idade para resolver dois tipos de problemas
+    - alterado as amostras com valor de idade igual a -1 (representa auxencia de valor) para conter NULL
+    - retirados idades impossíveis (todas as idades superiores a 127 anos)
