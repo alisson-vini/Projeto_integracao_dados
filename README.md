@@ -59,8 +59,15 @@
 - Alteração nos tipos de dados da seguinte forma:
     - data_inversa -> DateTime (DD/MM/YYYY)
     - horario -> (HH:MM:SS)
+    - km -> float
+    - longitude, latitude:
+        - alterado o tipo para string, retirado os espaços extras e trocar o caracter "," por "." para transformar em float
 - Na coluna `ano_fabricacao_veiculo` foi alterado as celulas que tinham valor 0 para NULL
 - foram removidas as colunas: `ilesos`, `feridos_leves`, `feridos_graves`, `mortos` porque essas informações já estão contidas na coluna `estado_fisico`
 - Alteração na coluna de idade para resolver dois tipos de problemas
     - alterado as amostras com valor de idade igual a -1 (representa auxencia de valor) para conter NULL
     - retirados idades impossíveis (todas as idades superiores a 127 anos)
+- quase 40k linhas do dataser porque as pessoas envolvidas não tinham as informações de 3 colunas: estado_fisico, tipo_envolvido, sexo e além disso não tinham idade como 0 além de terem o mesmo ID pessoa, o que como mostrado antes provalvelmente é um erro de preenchimento ou que esse é usado para representar uma pessoa não identificada, por isso foi criada a coluna "identificada" que contem o valor 0 para esses casos e 1 para todo o resto
+
+## Observações relavantes
+- A coluna de idade apresenta mais de 78k de amostras contendo idade igual a 0 (zero), essa mesma coluna possui aproximadamente 74k de amostras de pessoas entre 1-25 anos, é bem improvável que a taxa de pessoas recem nascides envolvidas em acidentes supere dessa forma a quantidade de pessoas entre 1-25 anos indicando que existem uma grande possibilidade de existir erro nesses dados, mas como isso não pode ser comprovado não teve moficição.
