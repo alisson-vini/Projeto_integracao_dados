@@ -1,6 +1,6 @@
 # Projeto de integração de dados
 
-## Dicionário de dados (antes das transformações)
+## Dicionário de dados
 
 ### Informações da Pessoa Envolvida (9)
 
@@ -34,9 +34,10 @@
 | `marca` | Marca do veículo envolvido. |
 | `ano_fabricacao_veiculo` | Ano de fabricação do veículo. |
 
-### Local (10)
+### Local (21)
 | Campo | Descrição |
 |---------|---------|
+| `id_local` | ID |
 | `uf` | Unidade da Federação onde ocorreu o acidente. |
 | `br` | Número da rodovia federal (BR) onde ocorreu o acidente. |
 | `km` | Quilômetro da rodovia onde ocorreu o acidente. |
@@ -46,25 +47,43 @@
 | `sentido_via` | Sentido da via considerando o ponto de colisão (crescente ou decrescente). |
 | `uso_solo` | Indica se o local do acidente está em área urbana ou rural. |
 | `tipo_pista` | Tipo de pista da rodovia (simples, dupla ou múltipla). |
-| `tracado_via` | Características do traçado da via. |
+| `Aclive` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Curva` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Declive` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Desvio Temporário` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Em Obras` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Interseção de Vias` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Ponte` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Reta` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Retorno Regulamentado` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Rotatória` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Túnel` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
+| `Viaduto` | variável booleana que indica a presença desse tipo de traçado (substitui a coluna traçado) |
 
 ### Clima (2)
 | Campo | Descrição |
 |---------|---------|
+| `id_clima` | ID |
 | `fase_dia` | Fase do dia no momento da ocorrência (amanhecer, pleno dia, anoitecer, etc.). |
 | `condicao_meteorologica` | Condições climáticas no momento do acidente. |
 
-|### Data (3)
+|### Data (7)
 | Campo | Descrição |
 |---------|---------|
+| `id_data` | ID |
 | `data_inversa` | Data da ocorrência no formato `dd/mm/aaaa`. |
 | `dia_semana` | Dia da semana em que ocorreu o acidente. |
 | `horario` | Horário da ocorrência no formato `hh:mm:ss`. |
+| `dia` | dia do mes (númerico) |
+| `mes` | Mes do ano (numérico) |
+| `ano` | ano |
+| `trimestre` | trimestre do ano (numérico) |
 
 ### Informações Administrativas da PRF (3)
 
 | Campo | Descrição |
 |---------|---------|
+| `id_adm_prf` | ID |
 | `regional` | Superintendência Regional da Polícia Rodoviária Federal responsável pela área do acidente. |
 | `delegacia` | Delegacia da PRF responsável pela circunscrição do local do acidente. |
 | `uop` | Unidade Operacional da PRF responsável pela área do acidente. |
@@ -86,8 +105,6 @@
 
 ## Observações relavantes
 - A coluna de idade apresenta mais de 78k de amostras contendo idade igual a 0 (zero), essa mesma coluna possui aproximadamente 74k de amostras de pessoas entre 1-25 anos, é bem improvável que a taxa de pessoas recem nascides envolvidas em acidentes supere dessa forma a quantidade de pessoas entre 1-25 anos indicando que existem uma grande possibilidade de existir erro nesses dados, mas como isso não pode ser comprovado não teve moficição.
-
-## Dicionário de dados (depois das transformações)
 
 ## Esquema estrela
 
