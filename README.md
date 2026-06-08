@@ -1,4 +1,6 @@
-## Dicionário de dados
+# Projeto de integração de dados
+
+## Dicionário de dados (antes das transformações)
 
 ### Identificação do Acidente (19)
 
@@ -63,11 +65,16 @@
     - longitude, latitude:
         - alterado o tipo para string, retirado os espaços extras e trocar o caracter "," por "." para transformar em float
 - Na coluna `ano_fabricacao_veiculo` foi alterado as celulas que tinham valor 0 para NULL
-- foram removidas as colunas: `ilesos`, `feridos_leves`, `feridos_graves`, `mortos` porque essas informações já estão contidas na coluna `estado_fisico`
+- Foram removidas as colunas: `ilesos`, `feridos_leves`, `feridos_graves`, `mortos` porque essas informações já estão contidas na coluna `estado_fisico`
 - Alteração na coluna de idade para resolver dois tipos de problemas
     - alterado as amostras com valor de idade igual a -1 (representa auxencia de valor) para conter NULL
     - retirados idades impossíveis (todas as idades superiores a 127 anos)
-- quase 40k linhas do dataser porque as pessoas envolvidas não tinham as informações de 3 colunas: estado_fisico, tipo_envolvido, sexo e além disso não tinham idade como 0 além de terem o mesmo ID pessoa, o que como mostrado antes provalvelmente é um erro de preenchimento ou que esse é usado para representar uma pessoa não identificada, por isso foi criada a coluna "identificada" que contem o valor 0 para esses casos e 1 para todo o resto
+- Quase 40k linhas do dataser porque as pessoas envolvidas não tinham as informações de 3 colunas: estado_fisico, tipo_envolvido, sexo e além disso não tinham idade como 0 além de terem o mesmo ID pessoa, o que como mostrado antes provalvelmente é um erro de preenchimento ou que esse é usado para representar uma pessoa não identificada, por isso foi criada a coluna "identificada" que contem o valor 0 para esses casos e 1 para todo o resto
+- Alterada a coluna "tracado_via", essa coluna armazenava multiplos valores em cada célula, para deixar todas as colunas da tabela contendo valores atómicos foi criado N colunas que vão armazenar um valor booleano (0 ou 1) identificando se a caracteristica descrita está ou não naquele acidente em questão, N vai ser a quantidade de valores diferentes atómicos que aquela que coluna "tracado_via" armazena, após isso a coluna "tracado_via" é removida.
 
 ## Observações relavantes
 - A coluna de idade apresenta mais de 78k de amostras contendo idade igual a 0 (zero), essa mesma coluna possui aproximadamente 74k de amostras de pessoas entre 1-25 anos, é bem improvável que a taxa de pessoas recem nascides envolvidas em acidentes supere dessa forma a quantidade de pessoas entre 1-25 anos indicando que existem uma grande possibilidade de existir erro nesses dados, mas como isso não pode ser comprovado não teve moficição.
+
+## Dicionário de dados (depois das transformações)
+
+## Esquema estrela
