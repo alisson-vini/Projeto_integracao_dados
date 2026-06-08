@@ -2,30 +2,6 @@
 
 ## Dicionário de dados (antes das transformações)
 
-### Identificação do Acidente (19)
-
-| Campo | Descrição |
-|---------|---------|
-| `id` | Identificador único do acidente. |
-| `data_inversa` | Data da ocorrência no formato `dd/mm/aaaa`. |
-| `dia_semana` | Dia da semana em que ocorreu o acidente. |
-| `horario` | Horário da ocorrência no formato `hh:mm:ss`. |
-| `uf` | Unidade da Federação onde ocorreu o acidente. |
-| `br` | Número da rodovia federal (BR) onde ocorreu o acidente. |
-| `km` | Quilômetro da rodovia onde ocorreu o acidente. |
-| `municipio` | Município da ocorrência. |
-| `causa_acidente` | Causa principal identificada para o acidente. |
-| `tipo_acidente` | Tipo de acidente registrado (colisão frontal, saída de pista, etc.). |
-| `classificacao_acidente` | Gravidade do acidente: sem vítimas, com vítimas feridas, com vítimas fatais ou ignorado. |
-| `fase_dia` | Fase do dia no momento da ocorrência (amanhecer, pleno dia, anoitecer, etc.). |
-| `sentido_via` | Sentido da via considerando o ponto de colisão (crescente ou decrescente). |
-| `condicao_meteorologica` | Condições climáticas no momento do acidente. |
-| `tipo_pista` | Tipo de pista da rodovia (simples, dupla ou múltipla). |
-| `tracado_via` | Características do traçado da via. |
-| `uso_solo` | Indica se o local do acidente está em área urbana ou rural. |
-| `latitude` | Latitude do local do acidente em formato decimal. |
-| `longitude` | Longitude do local do acidente em formato decimal. |
-
 ### Informações da Pessoa Envolvida (9)
 
 | Campo | Descrição |
@@ -40,6 +16,15 @@
 | `feridos_graves` | Indicador binário que informa se a pessoa sofreu ferimentos graves. |
 | `mortos` | Indicador binário que informa se a pessoa faleceu em decorrência do acidente. |
 
+### Identificação do Acidente (19)
+
+| Campo | Descrição |
+|---------|---------|
+| `id` | Identificador único do acidente. |
+| `causa_acidente` | Causa principal identificada para o acidente. |
+| `tipo_acidente` | Tipo de acidente registrado (colisão frontal, saída de pista, etc.). |
+| `classificacao_acidente` | Gravidade do acidente: sem vítimas, com vítimas feridas, com vítimas fatais ou ignorado. |
+
 ### Informações do Veículo (4)
 
 | Campo | Descrição |
@@ -48,6 +33,33 @@
 | `tipo_veiculo` | Categoria do veículo conforme o Código de Trânsito Brasileiro. |
 | `marca` | Marca do veículo envolvido. |
 | `ano_fabricacao_veiculo` | Ano de fabricação do veículo. |
+
+### Local (10)
+| Campo | Descrição |
+|---------|---------|
+| `uf` | Unidade da Federação onde ocorreu o acidente. |
+| `br` | Número da rodovia federal (BR) onde ocorreu o acidente. |
+| `km` | Quilômetro da rodovia onde ocorreu o acidente. |
+| `municipio` | Município da ocorrência. |
+| `latitude` | Latitude do local do acidente em formato decimal. |
+| `longitude` | Longitude do local do acidente em formato decimal. |
+| `sentido_via` | Sentido da via considerando o ponto de colisão (crescente ou decrescente). |
+| `uso_solo` | Indica se o local do acidente está em área urbana ou rural. |
+| `tipo_pista` | Tipo de pista da rodovia (simples, dupla ou múltipla). |
+| `tracado_via` | Características do traçado da via. |
+
+### Clima (2)
+| Campo | Descrição |
+|---------|---------|
+| `fase_dia` | Fase do dia no momento da ocorrência (amanhecer, pleno dia, anoitecer, etc.). |
+| `condicao_meteorologica` | Condições climáticas no momento do acidente. |
+
+|### Data (3)
+| Campo | Descrição |
+|---------|---------|
+| `data_inversa` | Data da ocorrência no formato `dd/mm/aaaa`. |
+| `dia_semana` | Dia da semana em que ocorreu o acidente. |
+| `horario` | Horário da ocorrência no formato `hh:mm:ss`. |
 
 ### Informações Administrativas da PRF (3)
 
@@ -78,3 +90,119 @@
 ## Dicionário de dados (depois das transformações)
 
 ## Esquema estrela
+
+### Tabela Fato
+tabela: fact_pessoa_acidente
+
+informação: cada linha representa uma pessoa envolvida em um acidente
+
+campos:
+
+    - pesid
+    - id
+    - id_veiculo
+    - id_local
+    - id_clima
+    - id_data
+    - id_adm_PRF
+
+### Tabelas Dimensão
+
+tabela: `dim_pessoa`
+
+informação: armazena as informações de cada uma das pessoas envolvidas no acidente
+
+campos:
+
+    - pesid
+    - estado_fisico
+    - tipo_envolvido
+    - idade
+    - sexo
+
+tabela: `dim_acidente`
+
+informação: armazena as informações de cada uma das pessoas envolvidas no acidente
+
+campos:
+
+    - id
+    - causa_acidente
+    - tipo_acidente
+    - classificacao_acidente
+
+tabela: `dim_veiculo`
+
+informação: armazena as informações de cada um dos veículos envolvidos
+
+campos:
+
+    - id_veiculo
+    - tipo_veiculo
+    - marca
+    - ano_fabricacao_veiculo
+
+tabela: `dim_local`
+
+informação: armazena as informações de cada um dos locais do acidente
+
+campos:
+
+    - id_local
+    - uf
+    - br
+    - km
+    - municipio
+    - latitude
+    - longitude
+    - sentido_via
+    - uso_solo
+    - tipo_pista
+    - Aclive
+    - Curva
+    - Declive
+    - Desvio Temporário
+    - Em Obras
+    - Interseção de Vias
+    - Ponte
+    - Reta
+    - Retorno Regulamentado
+    - Rotatória
+    - Túnel
+    - Viaduto
+
+tabela: `dim_clima`
+
+informação: armazena as informações do clima no momento do acidente
+
+campos:
+
+    - id_clima
+    - fase_dia
+    - condicao_meteorologica
+
+tabela: `dim_data`
+
+informação: armazena as informações da data do acidente
+
+campos:
+
+    - id_data
+    - dia (numérico)
+    - mes
+    - ano
+    - trimestre
+    - data_inversa
+    - dia_semana (escrito)
+    - horario
+
+tabela: `dim_adm_PRF`
+
+informação: armazena as informações adiministraticas da PRF
+
+campos:
+
+    - id_adm_prf
+    - regional
+    - delegacia
+    - uop
